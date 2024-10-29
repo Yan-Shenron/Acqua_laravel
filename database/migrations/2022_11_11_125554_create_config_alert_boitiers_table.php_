@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('config_alert_boitiers', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->integer('valMin')->nullable();
+            $table->integer('valMax')->nullable();
+            $table->boolean('isVisible')->nullable();
+            $table->boolean('mailed')->nullable();
+            $table->timestamps();
+
+            // foreign_keys
+            $table->unsignedBigInteger('boitier_id');
+            $table->unsignedBigInteger('alert_boitier_list_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('config_alert_boitiers');
+    }
+};

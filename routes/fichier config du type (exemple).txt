@@ -1,0 +1,36 @@
+fichier config du type (exemple)
+
+41526374-config.json (l'id du boitier qui est le topic et le nom de la table dans la base)
+le payload est le message suivant
+{
+	version : 1; (num, version qui s'incremente a chaque modif depuis le boitier ou l'app web)
+	info_boitier{	
+		version_affichee : 3.1; (char, version du boitier)
+		version_embarque : 3.1; (char, version du boitier)
+		boost : 1; (bool, actif/inactif)
+		etat_boitier : 1; (bool, actif/inactif)
+		etat_generateur_a : 1; (bool, actif/inactif)
+		etat_generateur_b : 1; (bool, actif/inactif)
+		langue : fr; (num, langue du boitier-> 1=fr, 2=it...)
+		client : 1; (num, id du client)
+		adresse : 12 rue du bac, 06000 Nice; (char, saisie par l'utilisateur)
+		gps : 1.1234,2.3455 (num, lat + long saisie par gmaps)
+		delais : 1 (num, délais sans connexion saisie par sur admin depuis l'app web)
+		info : information complémentaire (char saisi par le tech)
+		}
+	capteur{
+		capteur1{
+			id :123456789 (char, dans la déclaration du capteur)
+			label : temperature entré chaudiere (char, saisie par le tech)
+			unite : °C (char, saisie par le tech (menu déroulant, valeur à définir))
+		}
+		capteur2{
+			id :234567890 (char, dans la déclaration du capteur)
+			label : temperature sortie chaudiere (char, saisie par le tech)
+			unite : °C (char, saisie par le tech (menu déroulant, valeur à définir))
+		}
+	}
+}
+	
+41526374.json (l'id du boitier qui est le topic et le nom de la table dans la base)
+{12/45/3.3} (valeur1 / valeur 2 / valeur 3...)

@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('1_boitier_datas', function (Blueprint $table) {
+            $table->id();
+            $table->integer('epoch_date');
+            $table->integer('capteur_1_id');
+            $table->integer('capteur_1_data');
+            $table->integer('capteur_2_id');
+            $table->integer('capteur_2_data');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('1_boitier_datas');
+    }
+};

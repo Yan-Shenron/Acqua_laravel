@@ -523,9 +523,8 @@ class UserController extends Controller
                             ->where('role_id', 4);
                     break;
                 case 3: // Revendeur
-                    $revendeur_ids = User::where('user_id', $id)
-                                        ->where('role_id', 4)
-                                        ->pluck('id')->toArray();
+                    $query->where('user_id', $id)
+                        ->where('role_id', 4);
                 case 4: // Technicien
                     return 0;
                 case 5: // Customer

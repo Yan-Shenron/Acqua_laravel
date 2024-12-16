@@ -323,11 +323,50 @@ class BoitierController extends Controller
     }
 
     public function showAllPosition(){
-        $boitier = Boitier::all();
-    
+        $user = Auth::user();
         $data = [];
     
-        foreach ($boitier as $item) {
+        if (!$user) {
+            return [];
+        }
+    
+        $userId = $user->id;
+        $userRole = $user->role_id;
+    
+        $query = Boitier::leftJoin('users', 'boitiers.user_id', '=', 'users.id')
+            ->select('boitiers.id', 'boitiers.city', 'boitiers.state', 'boitiers.versionSoftware', DB::raw('COALESCE(users.name, "Unknown") as name'), DB::raw('COALESCE(users.firstname, "Unknown") as firstname'), 'boitiers.noSerie', 'boitiers.comment', 'boitiers.markerLat', 'boitiers.markerLng');
+    
+        switch ($userRole) {
+            case '1': // admin
+                break;
+    
+            case '2': // dealer (concessionaire)
+                $reseller_ids = User::where('user_id', $userId)->where('role_id', 2)->pluck('id')->toArray();
+                $query = $query->whereIn('boitiers.user_id', function ($query) use ($reseller_ids) {
+                    $query->select('id')->from('users')->whereIn('user_id', $reseller_ids)->where('role_id', 5);
+                });
+                break;
+    
+            case '3': // reseller (revendeur)
+                $query = $query->whereIn('boitiers.user_id', function ($query) use ($userId) {
+                    $query->select('id')->from('users')->where('user_id', $userId)->where('role_id', 5);
+                });
+                break;
+    
+            case '4': // technicien
+                $reseller_id = User::where('id', $userId)->first()->user_id;
+                $query = $query->whereIn('boitiers.user_id', function ($query) use ($reseller_id) {
+                    $query->select('id')->from('users')->where('user_id', $reseller_id)->where('role_id', 5);
+                });
+                break;
+    
+            case '5': // customer (client)
+                $query = $query->where('boitiers.user_id', $userId);
+                break;
+        }
+    
+        $boitiers = $query->orderBy('boitiers.id', 'asc')->get();
+        foreach ($boitiers as $item) {
             $marker = [
                 'comment' => $item->comment,
                 'id' => $item->id,

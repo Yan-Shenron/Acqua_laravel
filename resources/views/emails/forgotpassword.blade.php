@@ -12,7 +12,7 @@
             Lien de réinitialisation de votre mot de passe
         </div>
         <div class="card-content">
-            <p>Rendez vous sur <a href='https://acquagest.shenron.dev/password/reset'>https://acquagest.shenron.dev/password/reset</a> pour réinitialiser votre mot de passe.</p>
+            <p>Rendez vous sur <a href='https://monitoring.acquaprocess.eu/password/reset'>https://monitoring.acquaprocess.eu/password/reset</a> pour réinitialiser votre mot de passe.</p>
             <p>Ce code est utilisable à usage unique, il vous sera demandé lors de la réinitialisation : {{ $code }}</p>
             <p>Si vous n'avez pas demandé de réinitialisation de mot de passe, vous pouvez ignorer cet e-mail.</p>
             <p>Si vous rencontrez des problèmes, n'hésitez pas à nous contacter.</p>

@@ -14,7 +14,7 @@
         <div class="card-content">
             <p>Votre mot de passe est : {{ $clearPassword }}</p>
             <p>Merci de le conserver en lieu sûr et de ne pas le partager.</p>
-            <p>Nous vous recommandons de <a href='http://acquagest.shenron.dev'>personnaliser votre mot de passe</a> dès que possible.</p>
+            <p>Nous vous recommandons de <a href='http://monitoring.acquaprocess.eu'>personnaliser votre mot de passe</a> dès que possible.</p>
             <p>Si vous rencontrez des problèmes, n'hésitez pas à nous contacter.</p>
         </div>
         <div class="card-footer">

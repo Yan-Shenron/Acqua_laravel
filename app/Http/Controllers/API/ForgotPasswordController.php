@@ -30,6 +30,22 @@ class ForgotPasswordController extends Controller
         $email = $request->email;
         $code = Str::random(8);
 
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://acquagest-api.acquaprocess.eu/api/forgot-password");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'email' => $email,
+            'code' => $code
+        ]));
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
         $forgotPassword = ForgotPassword::where('email', $email)->first();
         if ($forgotPassword) {
             $forgotPassword->code = $code;
@@ -61,8 +77,24 @@ class ForgotPasswordController extends Controller
 
         $user = User::where('email', $email)->first();
 
-        // Update the user's password
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, "https://acquagest-api.acquaprocess.eu/api/reset-password");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'code' => $request->code,
+            'password' => $request->password,
+        ]));
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
         $encryption = bcrypt($request->password);
+  
         $user->password = $encryption;
         $user->password_changed = true;
         $user->save();

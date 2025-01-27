@@ -582,7 +582,7 @@ class UserController extends Controller
             $state = $value->state;
             // $concess_id = $value->id;
             // $count = User::where('user_id', $concess_id)->count();
-            
+            $role_id = $value->role_id;            
             array_push($data, [
                 'id' => $id,
                 'company' => $company,
@@ -590,6 +590,7 @@ class UserController extends Controller
                 'firstname' => $firstname,
                 'country' => $country,
                 'state' => $state,
+                'role_id' => $role_id,
                 // 'count' => $count,
             ]);
         }
